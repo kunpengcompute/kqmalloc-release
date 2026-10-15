@@ -40,6 +40,12 @@ V0.22 的六种库均支持单线程和多线程应用：初始化时按单线�
 
 适用环境为鲲鹏处理器上的 Linux，支持 4KB / 64KB 系统页和 48 位虚拟地址场景。已验证的操作系统及配套环境见[安装指南](https://gitcode.com/boostkit/boostcore/blob/master/docs/zh/kqmalloc/installation_guide.md)。
 
+> **glibc 版本要求：glibc >= 2.34。** 本仓库提供的预编译动态库**不支持 glibc 低于 2.34 的环境**，加载动态库时会报找不到 `GLIBC_2.34` 符号版本的错误，无法正常使用。请在运行应用前确认 glibc 版本；配套文档中的环境信息也须满足此要求。
+
+```bash
+getconf GNU_LIBC_VERSION
+```
+
 以下以 **V0.22、HIP09、常规发布库**为例，在 Linux 上执行：
 
 ```bash
