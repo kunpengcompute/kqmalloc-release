@@ -10,7 +10,27 @@ KQMalloc（Kunpeng Quick Malloc）是面向鲲鹏处理器的高性能内存分�
 | --- | --- | --- |
 | V0.22 | [kqmalloc-v0.22.0.tar.gz](./v0.22.0/kqmalloc-v0.22.0.tar.gz) | 每种处理器提供 6 种动态库，覆盖常规运行、指针标记、调试和分析场景；建议新接入用户优先使用。 |
 | V0.20 | [kqmalloc-v0.20.0.tar.gz](./v0.20.0/kqmalloc-v0.20.0.tar.gz) | 每种处理器提供 4 种动态库，适用于已有 V0.20 部署、需要保持原版本或进行版本对比的用户。 |
-| V0.19 beta0 | [kqmalloc-v0.19-beta0.gz](./v0.19-beta0/kqmalloc-v0.19-beta0.gz) | 每种处理器提供 4 种动态库，为历史测试版本，适用于已有环境复现和版本对比。 |
+| V0.19 beta0 | [kqmalloc-v0.19-beta0.tar.gz](./v0.19-beta0/kqmalloc-v0.19-beta0.tar.gz) | 每种处理器提供 4 种动态库，为历史测试版本，适用于已有环境复现和版本对比。 |
+
+### 软件包来源与完整性校验
+
+本仓软件包来自[官方发布目录](https://repo.boostkit.osinfra.cn/boostcore/kqmalloc/release/)，三个版本的压缩包均已与官方文件核对 SHA256，内容一致。各版本目录提供 `SHA256SUMS` 校验文件，包名与官方保持一致。
+
+| 版本 | SHA256 校验文件 | 来源记录 |
+| --- | --- | --- |
+| V0.22 | [SHA256SUMS](./v0.22.0/SHA256SUMS) | [官方溯源文件](https://repo.boostkit.osinfra.cn/boostcore/kqmalloc/release/v0.22.0/kqmalloc-v0.22.0.tar.gz.json) |
+| V0.20 | [SHA256SUMS](./v0.20.0/SHA256SUMS) | [本仓补充来源记录](./v0.20.0/kqmalloc-v0.20.0.tar.gz.json) |
+| V0.19 beta0 | [SHA256SUMS](./v0.19-beta0/SHA256SUMS) | [官方溯源文件](https://repo.boostkit.osinfra.cn/boostcore/kqmalloc/release/v0.19-beta0/kqmalloc-v0.19-beta0.tar.gz.json) |
+
+V0.20 的官方目录未提供 JSON 溯源文件，本仓补充记录其下载来源和 SHA256，不提供未经确认的源码提交或构建时间。
+
+下载软件包及对应版本的 `SHA256SUMS`，放在同一目录中，在 Linux 上执行：
+
+```bash
+sha256sum -c SHA256SUMS
+```
+
+输出中对应软件包显示 `OK` 后再解压；若校验失败，请重新下载并核对。
 
 ### V0.22：如何选择动态库
 
@@ -40,7 +60,7 @@ V0.22 的六种库均支持单线程和多线程应用：初始化时按单线�
 
 适用环境为鲲鹏处理器上的 Linux，支持 4KB / 64KB 系统页和 48 位虚拟地址场景。已验证的操作系统及配套环境见[安装指南](https://gitcode.com/boostkit/boostcore/blob/master/docs/zh/kqmalloc/installation_guide.md)。
 
-> **glibc 版本要求：glibc >= 2.34。** 本仓库提供的预编译动态库**不支持 glibc 低于 2.34 的环境**，加载动态库时会报找不到 `GLIBC_2.34` 符号版本的错误，无法正常使用。请在运行应用前确认 glibc 版本；配套文档中的环境信息也须满足此要求。
+> **glibc 版本要求：glibc >= 2.34。** 本仓库提供的预编译动态库**不支持 glibc 低于 2.34 的环境**，加载动态库时会报找不到 `GLIBC_2.34` 符号版本的错误，无法正常使用。请在运行应用前确认 glibc 版本。
 
 ```bash
 getconf GNU_LIBC_VERSION
@@ -60,7 +80,7 @@ kqmalloc_lib="$kqmalloc_root/HIP09/lib/libkqmalloc.so"
 LD_PRELOAD="$kqmalloc_lib" ./your_application arg1 arg2
 ```
 
-需要使用指针标记、调试或分析功能时，将 `kqmalloc_lib` 改为上表中的对应库文件。V0.20 多线程应用应选择 `libkqmallocmt.so`。V0.19 beta0 的文件名虽以 `.gz` 结尾，也可用 `tar -xzf kqmalloc-v0.19-beta0.gz` 解压。
+需要使用指针标记、调试或分析功能时，将 `kqmalloc_lib` 改为上表中的对应库文件。V0.20 多线程应用应选择 `libkqmallocmt.so`。
 
 可用以下命令检查动态库加载路径，输出应包含所选 KQMalloc 库，且没有 `not found` 或预加载失败提示：
 

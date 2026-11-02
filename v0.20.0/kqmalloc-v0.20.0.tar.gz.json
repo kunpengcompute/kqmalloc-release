@@ -1,0 +1,8 @@
+{
+    "fileName": "kqmalloc-v0.20.0.tar.gz",
+    "sha256Sum": "d87b379e5976b6e18b019cea08e85161fd4f313aa3b640f51085b3be99d5e381",
+    "downloadUrl": "https://repo.boostkit.osinfra.cn/boostcore/kqmalloc/release/v0.20.0/kqmalloc-v0.20.0.tar.gz",
+    "verifiedDate": "2026-11-02",
+    "recordType": "repository-added",
+    "note": "本记录由本仓补充，已从官方发布目录下载软件包并核对 SHA256。官方目录未提供此版本的 JSON 溯源文件，本记录仅说明下载来源和文件完整性，不声明源码提交或构建时间。"
+}
